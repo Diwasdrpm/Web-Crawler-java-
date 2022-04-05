@@ -13,7 +13,7 @@ import java.util.*;
  *
  * @author diwas
  */
-public class jsoup_02 {
+public class soup_02 {
 
     public static void main(String[] args) throws IOException, Exception {
         Scanner sc = new Scanner(System.in);
@@ -22,7 +22,7 @@ public class jsoup_02 {
         String keyword = sc.nextLine();
         ArrayList<ArrayList<String>> listoflists = new ArrayList<>();
         String url = "https://www.google.com/search?q=" + keyword;
-//        int count  = 0;
+        int count  = 0;
         for (String link : findLinks(url)) {
             if (link.contains("https")) {
                 if (!link.contains("google")) {
@@ -48,7 +48,7 @@ public class jsoup_02 {
                             innerList.add(para);
                             listoflists.add(innerList);
                         } catch (Exception io) {
-//                            count++ ;
+                            count++ ;
                             System.out.println("");
 
                         }
@@ -56,22 +56,23 @@ public class jsoup_02 {
                 }
             }
         }
-//        System.out.println(count);
+        System.out.println(count);
         System.out.println(listoflists.get(0).size());
         for (int i = 0; i < listoflists.size(); i++) {
             for (int k = 0; k < listoflists.get(i).size(); k++) {
-                String Keyword=listoflists.get(i).get(0);
+                String names=listoflists.get(i).get(0);
                 String rank=listoflists.get(i).get(1);
                 String title=listoflists.get(i).get(2);
                 String link=listoflists.get(i).get(3);
                 String para=listoflists.get(i).get(4);
                 try{
                     Connection conn = getConnection();
-                    PreparedStatement posted = conn.prepareStatement("INSERT INTO dateset (WORD,RANKING,TITLE,LINKS,DETAILS) VALUES ('" + Keyword + "','" + rank + "','" + title + "','" + link + "','" + para + "')");
+                    PreparedStatement posted = conn.prepareStatement("INSERT INTO keyword (WORD,RANKING,HEADING,LINKS) VALUES ('" + names + "','" + rank + "','" + title + "','" + link + "')");
                     posted.executeUpdate();
+                    
                 }
                 catch (Exception e){
-                    System.out.println(e);
+//                    System.out.println(e);
                 }
             }
         }
@@ -83,9 +84,9 @@ public class jsoup_02 {
     public static Connection getConnection() throws Exception {
         try {
 //            String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/testing_01";
+            String url = "jdbc:mysql://localhost:3306/minor_2";
             String username = "root";
-            String password = "Isolux@1987";
+            String password = "123456";
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             Connection conn = DriverManager.getConnection(url, username, password);
